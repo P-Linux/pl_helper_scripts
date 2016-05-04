@@ -10,11 +10,12 @@ VERSION = '0.9.0'
 NAME = pl_helper_scripts
 
 ifndef PBFD
-	PL_BASH_FUNCTIONS_DIR = '/usr/lib/pl_bash_functions'
+	PL_BASH_FUNCTIONS_DIR = '/usr/lib/pl_bash_functions/scripts'
 else
 	PL_BASH_FUNCTIONS_DIR = $(PBFD)
 endif
 
 PKG_DIR = $(NAME)
+DIRSCRIPTS = scripts
 
 # End of file

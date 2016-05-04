@@ -16,7 +16,7 @@ help:
 	@echo
 	@echo 'OPTIONS:'
 	@echo
-	@echo '  PBFD="/path_to/pl_bash_functions_dir"'
+	@echo '  PBFD="/path_to/pl_bash_functions_dir/scripts"'
 	@echo
 
 install:

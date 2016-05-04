@@ -8,4 +8,4 @@
 #
 #******************************************************************************************************************************
 declare -r _PL_HELPER_SCRIPTS_VERSION='0.9.0'
-declare -r _PL_BASH_FUNCTIONS_DIR='/usr/lib/pl_bash_functions'
+declare -r _PL_BASH_FUNCTIONS_DIR='/usr/lib/pl_bash_functions/scripts'
