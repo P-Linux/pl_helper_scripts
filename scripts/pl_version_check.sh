@@ -35,7 +35,7 @@ ms_header "${_MS_GREEN}" "$(gettext "Listing version numbers of some development
 
 ms_request_continue
 
-ms_has_tested_version "0.9.0"
+ms_has_tested_version "0.9.1"
 
 
 #******************************************************************************************************************************

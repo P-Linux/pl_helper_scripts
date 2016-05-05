@@ -4,9 +4,14 @@
 ---
 
 
-## v0.9.1 (xxxx-xx-xx)
+## v0.9.2 (xxxx-xx-xx)
+
+*
+
+## v0.9.1 (2016-05-05)
 
 * install scripts in a *scripts subfolder*
+* updates to `pl_bash_functions v0.9.1`
 
 
 ## v0.9.0 (2016-05-02)
