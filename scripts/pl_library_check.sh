@@ -35,7 +35,7 @@ ms_header "${_MS_GREEN}" "$(gettext "Checking for some library consistency...")"
 
 ms_request_continue
 
-ms_has_tested_version "0.9.1"
+ms_has_tested_version "0.9.2"
 
 
 #******************************************************************************************************************************

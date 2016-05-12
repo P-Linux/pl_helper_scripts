@@ -4,9 +4,15 @@
 ---
 
 
-## v0.9.2 (xxxx-xx-xx)
+## v0.9.3 (xxxx-xx-xx)
 
 *
+
+
+## v0.9.2 (2016-05-12)
+
+* updates to `pl_bash_functions v0.9.2`
+
 
 ## v0.9.1 (2016-05-05)
 
