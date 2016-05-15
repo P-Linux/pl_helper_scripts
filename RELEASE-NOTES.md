@@ -4,9 +4,15 @@
 ---
 
 
-## v0.9.3 (xxxx-xx-xx)
+## v0.9.4 (xxxx-xx-xx)
 
-*
+* 
+
+
+## v0.9.3 (2016-05-15)
+
+* updates to `pl_bash_functions v0.9.3`
+* adds list: gettext version
 
 
 ## v0.9.2 (2016-05-12)

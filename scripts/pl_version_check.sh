@@ -5,53 +5,53 @@
 #   <pl_version_check.sh> **peter1000** see license at: [pl_helper_scripts](https://github.com/P-Linux/pl_helper_scripts)
 #
 #******************************************************************************************************************************
-unset GREP_OPTIONS
-shopt -s extglob
-
 declare -r _PL_VERSION_CHECK_SCRIPT_PATH=$(readlink -f "${BASH_SOURCE[0]}")
 declare -r _PL_BASH_FUNCTIONS_MAIN_CONF_FILE_PATH="$(dirname "${_PL_VERSION_CHECK_SCRIPT_PATH}")/main_conf.sh"
 if ! source "${_PL_BASH_FUNCTIONS_MAIN_CONF_FILE_PATH}"; then
-    printf "$(gettext "Could not source: <%s>")" "${_PL_BASH_FUNCTIONS_MAIN_CONF_FILE_PATH}"
+    printf "$(_g "Could not source: <%s>")" "${_PL_BASH_FUNCTIONS_MAIN_CONF_FILE_PATH}"
     exit 1
 fi
 
-if ! source "${_PL_BASH_FUNCTIONS_DIR}/trap_exit.sh" &> /dev/null; then
-    printf "$(gettext "Could not source: <%s>")" "${_PL_BASH_FUNCTIONS_DIR}/trap_exit.sh"
+if ! source "${_PL_BASH_FUNCTIONS_DIR}/trap_opt.sh" &> /dev/null; then
+    printf "$(_g "Could not source: <%s>")" "${_PL_BASH_FUNCTIONS_DIR}/trap_opt.sh"
     exit 1
 fi
 
-for _signal in TERM HUP QUIT; do trap "tr_trap_exit \"${_signal}\"" "${_signal}"; done
-trap "tr_trap_exit_interrupted" INT
-trap "tr_trap_exit_unknown_error" ERR
+for _signal in TERM HUP QUIT; do trap "t_trap_s" "${_signal}"; done
+trap "t_trap_i" INT
+trap "t_trap_u" ERR
 
 if ! source "${_PL_BASH_FUNCTIONS_DIR}/msg.sh" &> /dev/null; then
-    printf "$(gettext "Could not source: <%s>")" "${_PL_BASH_FUNCTIONS_DIR}/msg.sh"
+    printf "$(_g "Could not source: <%s>")" "${_PL_BASH_FUNCTIONS_DIR}/msg.sh"
     exit 1
 fi
 
-ms_format "${_PL_VERSION_CHECK_SCRIPT_PATH}"
+m_format
 
-ms_header "${_MS_GREEN}" "$(gettext "Listing version numbers of some development tools...")"
+m_header "${_M_GREEN}" "$(_g "Listing version numbers of some development tools...")"
 
-ms_request_continue
+m_ask_continue
 
-ms_has_tested_version "0.9.2"
+m_has_tested_version "0.9.3"
 
 
 #******************************************************************************************************************************
 # List bash version / checks
 #******************************************************************************************************************************
 check_bash() {
-    echo
-    ms_msg "$(gettext "Checking: Bash")"
-    ms_bold_i "$(gettext "bash: %s")" "$(bash --version | head -n1 | cut -d" " -f4-4)"
+    local _mysh
 
-    ms_msg_i "$(gettext "/bin/sh should be a symbolic or hard link to bash")"
-    local _mysh=$(readlink -f /bin/sh)
+    echo
+    m_msg "$(_g "Checking: Bash")"
+    m_bold_i "$(_g "bash: %s")" "$(bash --version | head -n1 | cut -d" " -f4-4)"
+
+    m_msg_i "$(_g "/bin/sh should be a symbolic or hard link to bash")"
+
+    _mysh=$(readlink -f /bin/sh)
     if $(echo ${_mysh} | grep -q bash); then
-        ms_bold_i "$(gettext "/bin/sh -> %s is a link")" "${_mysh}"
+        m_bold_i "$(_g "/bin/sh -> %s is a link")" "${_mysh}"
     else
-        ms_warn2 "$(gettext "/bin/sh does not point to bash")"
+        m_warn2 "$(_g "/bin/sh does not point to bash")"
     fi
 }
 
@@ -61,16 +61,16 @@ check_bash() {
 #******************************************************************************************************************************
 check_bison() {
     echo
-    ms_msg "$(gettext "Checking: Bison")"
-    ms_bold_i "$(gettext "bison: %s")" "$(bison --version | head -n1 | cut -d" " -f2-)"
+    m_msg "$(_g "Checking: Bison")"
+    m_bold_i "$(_g "bison: %s")" "$(bison --version | head -n1 | cut -d" " -f2-)"
 
-    ms_msg_i "$(gettext "/usr/bin/yacc should be a link to bison or small script that executes bison")"
+    m_msg_i "$(_g "/usr/bin/yacc should be a link to bison or small script that executes bison")"
     if [[ -h "/usr/bin/yacc" ]]; then
-        ms_bold_i "$(gettext "/usr/bin/yacc -> %s")" "$(readlink -f /usr/bin/yacc)"
+        m_bold_i "$(_g "/usr/bin/yacc -> %s")" "$(readlink -f /usr/bin/yacc)"
     elif [[ -x "/usr/bin/yacc" ]]; then
-        ms_bold_i "$(gettext "yacc is %s")" "$(/usr/bin/yacc --version | head -n1)"
+        m_bold_i "$(_g "yacc is %s")" "$(/usr/bin/yacc --version | head -n1)"
     else
-        ms_warn2 "$(gettext "/usr/bin/yacc not found")"
+        m_warn2 "$(_g "/usr/bin/yacc not found")"
     fi
 }
 
@@ -80,16 +80,16 @@ check_bison() {
 #******************************************************************************************************************************
 check_gawk() {
     echo
-    ms_msg "$(gettext "Checking: Gawk")"
-    ms_bold_i "$(gettext "gawk: %s")" "$(gawk --version | head -n1)"
+    m_msg "$(_g "Checking: Gawk")"
+    m_bold_i "$(_g "gawk: %s")" "$(gawk --version | head -n1)"
 
-    ms_msg_i "$(gettext "/usr/bin/awk should be a link to gawk")"
+    m_msg_i "$(_g "/usr/bin/awk should be a link to gawk")"
     if [[ -h "/usr/bin/awk" ]]; then
-         ms_bold_i "$(gettext "/usr/bin/awk -> %s")" "$(readlink -f /usr/bin/awk)"
+         m_bold_i "$(_g "/usr/bin/awk -> %s")" "$(readlink -f /usr/bin/awk)"
     elif [[ -x "/usr/bin/awk" ]]; then
-      ms_bold_i "$(gettext "awk is %s")" "$(/usr/bin/awk --version | head -n1)"
+      m_bold_i "$(_g "awk is %s")" "$(/usr/bin/awk --version | head -n1)"
     else
-        ms_warn2 "$(gettext "/usr/bin/awk not found")"
+        m_warn2 "$(_g "/usr/bin/awk not found")"
     fi
 }
 
@@ -99,17 +99,17 @@ check_gawk() {
 #******************************************************************************************************************************
 check_gcc() {
     echo
-    ms_msg "$(gettext "Checking: Gcc (including the C++ compiler)")"
-    ms_bold_i "$(gettext "gcc: %s")" "$(gcc --version | head -n1 | cut -d" " -f2-)"
-    ms_bold_i "$(gettext "g++: %s")" "$(g++ --version | head -n1 | cut -d" " -f2-)"
+    m_msg "$(_g "Checking: Gcc (including the C++ compiler)")"
+    m_bold_i "$(_g "gcc: %s")" "$(gcc --version | head -n1 | cut -d" " -f2-)"
+    m_bold_i "$(_g "g++: %s")" "$(g++ --version | head -n1 | cut -d" " -f2-)"
 
-    ms_msg_i "$(gettext "Testing g++ compilation")"
+    m_msg_i "$(_g "Testing g++ compilation")"
 
     echo 'int main() {}' > dummy.c && g++ -o dummy dummy.c
     if [[ -x "dummy" ]]; then
-        ms_bold_i "$(gettext "g++ compilation: OK")"
+        m_bold_i "$(_g "g++ compilation: OK")"
     else
-        ms_warn2 "$(gettext "g++ compilation: FAILED")"
+        m_warn2 "$(_g "g++ compilation: FAILED")"
     fi
     rm -f dummy.c dummy
 }
@@ -120,8 +120,8 @@ check_gcc() {
 #******************************************************************************************************************************
 list_bzip2() {
     echo
-    ms_msg "$(gettext "Checking: Bzip2")"
-    ms_bold_i "$(gettext "bzip2: %s")" "$(bzip2 --version 2>&1 < /dev/null | head -n1 | cut -d" " -f8-)"
+    m_msg "$(_g "Checking: Bzip2")"
+    m_bold_i "$(_g "bzip2: %s")" "$(bzip2 --version 2>&1 < /dev/null | head -n1 | cut -d" " -f8-)"
 }
 
 
@@ -131,16 +131,17 @@ list_bzip2() {
 list_common() {
     local _name=$1
     local _command=$2
-    local _remove_front=${3:-""}
+    local _rm_front=${3:-""}
 
     echo
-    ms_msg "$(gettext "Checking: %s")" "$_name"
-    if [[ -n ${_remove_front} ]]; then
-        ms_bold_i "$(gettext "%s: %s")" "$_command" "$($_command --version | head -n1 | cut -d" " -f${_remove_front}-)"
+    m_msg "$(_g "Checking: %s")" "$_name"
+    if [[ -n ${_rm_front} ]]; then
+        m_bold_i "$(_g "%s: %s")" "$_command" "$($_command --version | head -n1 | cut -d" " -f${_rm_front}-)"
     else
-        ms_bold_i "$(gettext "%s: %s")" "$_command" "$($_command --version | head -n1)"
+        m_bold_i "$(_g "%s: %s")" "$_command" "$($_command --version | head -n1)"
     fi
 }
+
 
 #******************************************************************************************************************************
 #   MAIN - RUN IT
@@ -153,16 +154,16 @@ check_gawk
 check_gcc
 
 echo
-ms_msg "$(gettext "Checking: Linux Kernel")"
-ms_bold_i "$(gettext "Linux Kernel: %s")" "$(cat /proc/version | cut -d" " -f3-3)"
+m_msg "$(_g "Checking: Linux Kernel")"
+m_bold_i "$(_g "Linux Kernel: %s")" "$(cat /proc/version | cut -d" " -f3-3)"
 
 echo
-ms_msg "$(gettext "Checking: Perl")"
-ms_bold_i "$(gettext "perl: %s")" "$(perl -V:version)"
+m_msg "$(_g "Checking: Perl")"
+m_bold_i "$(_g "perl: %s")" "$(perl -V:version)"
 
 echo
-ms_msg "$(gettext "Checking: Ncurses")"
-ms_bold_i "$(gettext "tput: %s")" "$(tput -V | head -n1 | cut -d" " -f2-)"
+m_msg "$(_g "Checking: Ncurses")"
+m_bold_i "$(_g "tput: %s")" "$(tput -V | head -n1 | cut -d" " -f2-)"
 
 list_bzip2
 
@@ -189,6 +190,7 @@ list_common "Mercurial" "hg" "4"
 list_common "Bazaar" "bzr" "3"
 list_common "Inetutils" "ping" "2"
 list_common "Bsdtar" "bsdtar" "2"
+list_common "Gettext" "gettext" "2"
 
 
 #******************************************************************************************************************************
