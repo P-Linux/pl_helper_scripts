@@ -6,7 +6,7 @@
 
 ## v0.9.4 (xxxx-xx-xx)
 
-* 
+* adds list: procps-ng version
 
 
 ## v0.9.3 (2016-05-15)

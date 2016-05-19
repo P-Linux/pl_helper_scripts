@@ -191,6 +191,7 @@ list_common "Bazaar" "bzr" "3"
 list_common "Inetutils" "ping" "2"
 list_common "Bsdtar" "bsdtar" "2"
 list_common "Gettext" "gettext" "2"
+list_common "PROCPS-NG" "ps" "3"
 
 
 #******************************************************************************************************************************
