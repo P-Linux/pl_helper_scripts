@@ -4,10 +4,16 @@
 ---
 
 
-## v0.9.4 (xxxx-xx-xx)
+## v0.9.5 (xxxx-xx-xx)
+
+*
+
+
+## v0.9.4 (2016-05-26)
 
 * adds list: procps-ng version
 * updates to `pl_bash_functions v0.9.4`
+* fixed report error
 
 
 ## v0.9.3 (2016-05-15)

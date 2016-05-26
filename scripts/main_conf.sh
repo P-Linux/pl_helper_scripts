@@ -7,5 +7,5 @@
 #       Configuration file for 'pl_helper_scripts'
 #
 #******************************************************************************************************************************
-declare -r _PL_HELPER_SCRIPTS_VERSION='0.9.3'
+declare -r _PL_HELPER_SCRIPTS_VERSION='0.9.4'
 declare -r _PL_BASH_FUNCTIONS_DIR='/usr/lib/pl_bash_functions/scripts'
