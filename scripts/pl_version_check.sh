@@ -100,7 +100,8 @@ check_gcc() {
 
     i_msg_i "$(_g "Testing g++ compilation")"
 
-    echo 'int main() {}' > dummy.c && g++ -o dummy dummy.c
+    echo 'int main() {}' > dummy.c
+    g++ -o dummy dummy.c
     if [[ -x "dummy" ]]; then
         i_bold_i "$(_g "g++ compilation: OK")"
     else
